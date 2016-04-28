@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width",initial-scale=1.0>
+		<title>Document</title>
+	</head>
+	<style>
+	*{
+		box-sizing:boeder-box;
+	}
+	body,ul,li{
+		padding:0;
+		margin:0;
+		list-style: none;
+	}
+	.box{
+		overflow: hidden;
+		width:100%;
+		height:400px;
+		
+		}
+	.inner{
+
+		width:500%;
+		height:100%;
+	}
+	.inner li:nth-child(1){
+		background-color: red;
+	}
+	.inner li:nth-child(2){
+		background-color: blue;
+	}
+	.inner li:nth-child(3){
+		background-color: yellow;
+	}
+	.inner li:nth-child(4){
+		background-color: #f0f;
+	}
+	.inner li:nth-child(5){
+		background-color: #ccc;
+	}
+	
+	.inner li{
+		width:20%;
+		color:#fff;
+		line-height: 400px;
+		float:left;
+		font-size:100px;
+		text-align: center;
+	}
+	</style>
+	<body>
+		<div class="box">
+			<ul class="inner">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
+		</div>
+
+	</body>
+	<script>
+var box=document.querySelector('.box');
+
+var inner=box.querySelector(".inner");
+var lis=inner.querySelectorAll('li');
+var iw=box.clientWidth;
+console.log(iw);
+var i=0;
+var moveX=0;
+var istouch="ontouchstart" in window;
+console.log(window)
+var mousedown=istouch?'touchstart':'mousedown'
+var mousemove=istouch?'touchmove':'mousemove';
+var mouseup=istouch?'touchend':'mouseup';
+inner.addEventListener(mousedown,down)
+function down(e){
+
+	console.log(e)
+	var ev=e||window.event;
+	 ev.preventDefault();
+	var stime=ev.timeStamp;
+	var ev=istouch?ev.changedTouches[0]:ev;
+	var dx=ev.clientX;
+	
+	// console.log(dx);
+var mx=0;
+var cx=0;
+document.addEventListener(mousemove,move)
+function move(e){
+	var ev=e||window.event;
+	var ev=istouch?ev.changedTouches[0]:ev;
+	 mx=ev.clientX;
+	 console.log(mx)
+		cx=mx-dx;
+	inner.style.transform="translateX("+(cx+moveX)+"px)"
+
+}
+document.addEventListener(mouseup,up)
+function up(e){
+	var ev=e||window.event;
+	var etime=ev.timeStamp;
+	var ct=etime-stime;
+	document.removeEventListener(mousemove,move)
+	if(Math.abs(cx)>iw/2||(ct<100 && Math.abs(cx)>30)){
+		if(cx>0){
+			i--;}
+		if(cx<0){
+			i++;
+		}
+		if(i<0){
+			i=0
+		}
+		if(i>lis.length-1){
+			i=lis.length-1
+		}
+	 	moveX=-i*iw
+		inner.style.transition="transform .3s"
+		inner.style.transform="translateX("+moveX+"px)"
+
+		}
+		
+	 else {
+
+	 	inner.style.transform="translateX("+moveX+"px)"
+	 }
+
+
+	document.removeEventListener(mouseup,up)
+
+
+}
+
+	
+
+}
+
+
+
+
+	</script>
+	</html>	
