@@ -89,7 +89,7 @@ function down(e){
 	// console.log(dx);
 var mx=0;
 var cx=0;
-document.addEventListener(mousemove,move)
+inner.addEventListener(mousemove,move)
 function move(e){
 	var ev=e||window.event;
 	var ev=istouch?ev.changedTouches[0]:ev;
@@ -99,7 +99,7 @@ function move(e){
 	inner.style.transform="translateX("+(cx+moveX)+"px)"
 
 }
-document.addEventListener(mouseup,up)
+inner.addEventListener(mouseup,up)
 function up(e){
 	var ev=e||window.event;
 	var etime=ev.timeStamp;
