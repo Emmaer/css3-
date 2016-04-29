@@ -96,7 +96,7 @@ function move(e){
 	 mx=ev.clientX;
 	 console.log(mx)
 		cx=mx-dx;
-	inner.style.transform="translateX("+(cx+moveX)+"px)"
+	inner.style.transform="translate3d("+(cx+moveX)+"px,0,0)"
 
 }
 inner.addEventListener(mouseup,up)
@@ -104,7 +104,7 @@ function up(e){
 	var ev=e||window.event;
 	var etime=ev.timeStamp;
 	var ct=etime-stime;
-	document.removeEventListener(mousemove,move)
+	inner.removeEventListener(mousemove,move)
 	if(Math.abs(cx)>iw/2||(ct<100 && Math.abs(cx)>30)){
 		if(cx>0){
 			i--;}
@@ -119,17 +119,17 @@ function up(e){
 		}
 	 	moveX=-i*iw
 		inner.style.transition="transform .3s"
-		inner.style.transform="translateX("+moveX+"px)"
+		inner.style.transform="translate3d("+moveX+"px,0,0)"
 
 		}
 		
 	 else {
 
-	 	inner.style.transform="translateX("+moveX+"px)"
+	 	inner.style.transform="translate3d("+moveX+"px,0,0)"
 	 }
 
 
-	document.removeEventListener(mouseup,up)
+	inner.removeEventListener(mouseup,up)
 
 
 }
